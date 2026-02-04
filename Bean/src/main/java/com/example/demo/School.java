@@ -13,3 +13,4 @@ public class School {	//Spring injects the Student bean
         student.study();
     }
 }
+
