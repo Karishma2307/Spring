@@ -1,0 +1,10 @@
+CREATE TABLE accounts (
+  id INT PRIMARY KEY,
+  name VARCHAR(50) NOT NULL,
+  balance INT NOT NULL
+);
+
+CREATE TABLE audit_logs (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  message VARCHAR(200) NOT NULL
+);
