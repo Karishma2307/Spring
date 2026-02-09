@@ -14,16 +14,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.dto.EmployeeCreateRequest;
 import com.example.demo.entity.Employee;
-import com.example.demo.entity.EmployeeProfile;
 import com.example.demo.service.EmployeeService;
 
 @RestController
 @RequestMapping("/employees")
 public class EmployeeController {
 
-	private final EmployeeProfile employeeService;
+	private final EmployeeService employeeService;
 
-	public EmployeeController(EmployeeProfile employeeService) {
+	public EmployeeController(EmployeeService employeeService) {
 		this.employeeService = employeeService;
 	}
 
