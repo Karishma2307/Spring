@@ -1,0 +1,44 @@
+<!Doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+	
+<head>
+	<title> Login </title>
+	<style>
+		body { font-family: Arial; margin: 30px; }
+		   .box { width: 350px; padding: 20px; border: 1px solid #ddd; border-radius: 8px; }
+		   .row { margin-bottom: 12px; }
+		   .err { color: red; }
+		   .msg { color: green; }
+		   input { width: 100%; padding: 8px; }
+		   button { padding: 10px 14px; cursor: pointer; }
+		</style>
+</head>
+<body>
+	<div class="box">
+		<p class="msg" th:if="${msg}" th:text="${msg}"></p>
+		<p class="err" th:if="${error}" th:text="${error}"></p>
+		</div>
+		
+		<form th:action="@{/login}" th:object="${loginForm}" method="post">
+			<div class="row">
+				<labe>Email</label>
+					<input type="text" th:field="*{email}" />
+					<div class="err" th:errors="*{email}"></div>
+			</div>
+			<div class="row">
+				<labe>Password</label>
+					<input type="password" th:field="*{password}" />
+					<div class="err" th:errors="*{password}"></div>
+			</div>
+			
+			<button type="submit"> Login</button>
+			</form>
+			<p style="margin-top:12px;">
+				New User?<a th:href="@{/register}">Register</a>
+				</p>
+	</body>
+	</html>
+	
+	
+	
+	
