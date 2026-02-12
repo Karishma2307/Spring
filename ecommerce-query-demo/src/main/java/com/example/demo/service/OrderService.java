@@ -45,14 +45,14 @@ public class OrderService {
             Product p = ci.getProduct();
             if (p.getStock() < ci.getQuantity()) throw new RuntimeException("Stock changed. Try again.");
 
-            // Decrease stock using NATIVE update (fast)
+            
             productRepo.updateStockNative(p.getId(), p.getStock() - ci.getQuantity());
 
             BigDecimal line = p.getPrice().multiply(BigDecimal.valueOf(ci.getQuantity()));
             orderItemRepo.save(new OrderItem(order, p, ci.getQuantity(), p.getPrice(), line));
         }
 
-        // clear cart
+        
         cartItemRepo.deleteByCartId(cart.getId());
         return order;
     }

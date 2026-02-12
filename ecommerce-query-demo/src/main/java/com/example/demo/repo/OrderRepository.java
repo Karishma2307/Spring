@@ -17,7 +17,7 @@ import jakarta.transaction.Transactional;
 
 public interface OrderRepository extends JpaRepository<OrderEntity, Long> {
 
-    // ✅ JPQL: Customer order history (pagination)
+    
     @Query("""
       SELECT o FROM OrderEntity o
       WHERE o.customer.id = :customerId
@@ -25,7 +25,7 @@ public interface OrderRepository extends JpaRepository<OrderEntity, Long> {
     """)
     Page<OrderEntity> ordersForCustomer(@Param("customerId") Long customerId, Pageable pageable);
 
-    // ✅ JPQL: orders by status + date range
+ 
     @Query("""
       SELECT o FROM OrderEntity o
       WHERE o.status = :status
@@ -36,7 +36,7 @@ public interface OrderRepository extends JpaRepository<OrderEntity, Long> {
                                      @Param("from") LocalDateTime from,
                                      @Param("to") LocalDateTime to);
 
-    // ✅ Native: update status quickly
+    
     @Modifying
     @Transactional
     @Query(value = "UPDATE orders SET status = :status WHERE id = :orderId", nativeQuery = true)

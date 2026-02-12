@@ -22,20 +22,19 @@ public class OrderController {
         this.repo = repo;
     }
 
-    // Place order from cart
+    
     @PostMapping("/place")
     public OrderEntity place(@Valid @RequestBody CreateOrderRequest req) {
         return service.placeOrder(req.customerId());
     }
 
-    // Customer order history with pagination
-    // /api/orders/customer/1?page=0&size=5&sort=orderDate,desc
+    
     @GetMapping("/customer/{customerId}")
     public Page<OrderEntity> history(@PathVariable Long customerId, Pageable pageable) {
         return repo.ordersForCustomer(customerId, pageable);
     }
 
-    // Native update status
+   
     @PutMapping("/{orderId}/status")
     public String updateStatus(@PathVariable Long orderId, @RequestParam String status) {
         int rows = repo.updateStatusNative(orderId, status);

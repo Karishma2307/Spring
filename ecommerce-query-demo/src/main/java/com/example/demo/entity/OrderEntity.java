@@ -15,7 +15,7 @@ public class OrderEntity {
     private Customer customer;
 
     @Column(nullable=false)
-    private String status; // CREATED, PAID, SHIPPED, CANCELLED
+    private String status; 
 
     private LocalDateTime orderDate = LocalDateTime.now();
 

@@ -36,21 +36,21 @@ public class DataSeeder implements CommandLineRunner {
     public void run(String... args) {
 
         long catCount = categoryRepo.count();
-        System.out.println("✅ DataSeeder started. categories count = " + catCount);
+        System.out.println(" DataSeeder started. categories count = " + catCount);
 
         if (catCount > 0) {
-            System.out.println("⏭️ Seeding skipped (data already exists).");
-            return; // seed only once
+            System.out.println(" Seeding skipped (data already exists).");
+            return; 
         }
 
-        // ✅ 30 Categories
+       
         List<Category> categories = new ArrayList<>();
         for (int i = 1; i <= 30; i++) {
             categories.add(new Category("Category-" + i, true));
         }
         categoryRepo.saveAll(categories);
 
-        // ✅ 60 Products (each category has 2 products)
+       
         List<Product> products = new ArrayList<>();
         int sku = 1000;
         Random r = new Random();
@@ -69,14 +69,14 @@ public class DataSeeder implements CommandLineRunner {
         }
         productRepo.saveAll(products);
 
-        // ✅ 30 Customers
+        
         List<Customer> customers = new ArrayList<>();
         for (int i = 1; i <= 30; i++) {
             customers.add(new Customer("Customer-" + i, "cust" + i + "@mail.com"));
         }
         customerRepo.saveAll(customers);
 
-        // ✅ 30 Carts + 60 CartItems
+        
         for (Customer cust : customers) {
             Cart cart = cartRepo.save(new Cart(cust));
 
@@ -86,7 +86,7 @@ public class DataSeeder implements CommandLineRunner {
             }
         }
 
-        // ✅ 30 Orders + 60 OrderItems
+        
         for (int i = 0; i < 30; i++) {
             Customer cust = customers.get(i);
 
@@ -102,6 +102,6 @@ public class DataSeeder implements CommandLineRunner {
             }
         }
 
-        System.out.println("✅ Seed completed: 30+ records per table (categories, customers, carts, orders) and 60+ items.");
+        System.out.println(" Seed completed: 30+ records per table (categories, customers, carts, orders) and 60+ items.");
     }
 }

@@ -13,7 +13,7 @@ public interface CartRepository extends JpaRepository<Cart, Long> {
 
     Optional<Cart> findByCustomerId(Long customerId);
 
-    // ✅ Native: Cart total = SUM(qty * price)
+    
     @Query(value = """
        SELECT COALESCE(SUM(ci.quantity * p.price), 0)
        FROM cart_items ci

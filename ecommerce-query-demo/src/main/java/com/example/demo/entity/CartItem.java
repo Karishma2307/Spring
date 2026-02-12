@@ -22,23 +22,23 @@ public class CartItem {
     @Column(nullable=false)
     private int quantity;
 
-    // ✅ Default constructor (JPA needs this)
+    
     public CartItem() {}
 
-    // ✅ REQUIRED constructor (your service uses this)
+    
     public CartItem(Cart cart, Product product, int quantity) {
         this.cart = cart;
         this.product = product;
         this.quantity = quantity;
     }
 
-    // ✅ Getters
+  
     public Long getId() { return id; }
     public Cart getCart() { return cart; }
     public Product getProduct() { return product; }
     public int getQuantity() { return quantity; }
 
-    // ✅ Setters
+
     public void setCart(Cart cart) { this.cart = cart; }
     public void setProduct(Product product) { this.product = product; }
     public void setQuantity(int quantity) { this.quantity = quantity; }
