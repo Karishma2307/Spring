@@ -1,8 +1,6 @@
 package com.example.demo.config;
 
-
 import com.example.demo.entity.*;
-
 import com.example.demo.repo.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -36,7 +34,14 @@ public class DataSeeder implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
-        if (categoryRepo.count() > 0) return; // seed only once
+
+        long catCount = categoryRepo.count();
+        System.out.println("✅ DataSeeder started. categories count = " + catCount);
+
+        if (catCount > 0) {
+            System.out.println("⏭️ Seeding skipped (data already exists).");
+            return; // seed only once
+        }
 
         // ✅ 30 Categories
         List<Category> categories = new ArrayList<>();
@@ -45,7 +50,7 @@ public class DataSeeder implements CommandLineRunner {
         }
         categoryRepo.saveAll(categories);
 
-        // ✅ 60 Products (each category has 2 products => strong ecom data)
+        // ✅ 60 Products (each category has 2 products)
         List<Product> products = new ArrayList<>();
         int sku = 1000;
         Random r = new Random();
@@ -71,25 +76,24 @@ public class DataSeeder implements CommandLineRunner {
         }
         customerRepo.saveAll(customers);
 
-        // ✅ 30 Carts + 30+ CartItems
+        // ✅ 30 Carts + 60 CartItems
         for (Customer cust : customers) {
             Cart cart = cartRepo.save(new Cart(cust));
 
-            // each cart has 2 items => 60 cart_items
             for (int k = 0; k < 2; k++) {
                 Product p = products.get(r.nextInt(products.size()));
                 cartItemRepo.save(new CartItem(cart, p, 1 + r.nextInt(3)));
             }
         }
 
-        // ✅ 30 Orders + 60+ OrderItems
+        // ✅ 30 Orders + 60 OrderItems
         for (int i = 0; i < 30; i++) {
             Customer cust = customers.get(i);
 
-            // total = random for seed
-            OrderEntity order = orderRepo.save(new OrderEntity(cust, "PAID", BigDecimal.valueOf(500 + r.nextInt(2000))));
+            OrderEntity order = orderRepo.save(
+                    new OrderEntity(cust, "PAID", BigDecimal.valueOf(500 + r.nextInt(2000)))
+            );
 
-            // each order has 2 items => 60 order_items
             for (int k = 0; k < 2; k++) {
                 Product p = products.get(r.nextInt(products.size()));
                 int qty = 1 + r.nextInt(3);
